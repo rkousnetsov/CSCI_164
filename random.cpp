@@ -1,15 +1,16 @@
 #include "random.hpp"
 #include <math.h>
+#include <random>
 
-/* Floating point macro for the mathematical constant pi */
+/* Define the mathematical constant pi as a floating point value */
 #define PI_F 3.14159265358979f
 
 /*
  * Initialize random number generator, which uses Mersenne Twister algorithm (mt19937),
- * with a random real value seed (random_device)
+ * with a random real value seed (given by random_device).
  */
-std::random_device Random::rd;
-std::mt19937 Random::gen(Random::rd());
+static std::random_device rd;
+static std::mt19937 gen(rd());
 
 /*
  * Returns a float from a standard uniform distribution ~ U(0, 1).
@@ -17,14 +18,14 @@ std::mt19937 Random::gen(Random::rd());
 float Random::standardUniform()
 {
     std::uniform_real_distribution<float> unif(0, 1);
-    return unif(Random::gen);
+    return unif(gen);
 }
 
 /*
  * Returns a float from a standard normal distribution.
  * Standard normal = Z ~ N(0, 1) = normal distribution with mean 0 and standard deviation 1.
  * The Box-Mueller algorithm is used here.
- * Note that the C++ <random> library also can directly generate normal random variables.
+ * Note that the C++ <random> library can directly generate normal random variables.
  */
 float Random::standardNormal()
 {
@@ -34,7 +35,7 @@ float Random::standardNormal()
 /*
  * Returns a float from an exponential distribution with parameter lambda.
  * The inverse transform algorithm is used here.
- * Note that the C++ <random> library also can directly generate exponential random variables.
+ * Note that the C++ <random> library can directly generate exponential random variables.
  */
 float Random::exponential(float lambda)
 {
@@ -44,7 +45,7 @@ float Random::exponential(float lambda)
 /*
  * Returns a float from a Weibull distribution with scale parameter lambda and shape parameter k.
  * The inverse transform algorithm is used here.
- * Note that the C++ <random> library also can directly generate Weibull random variables.
+ * Note that the C++ <random> library can directly generate Weibull random variables.
  */
 float Random::weibull(float lambda, float k)
 {
@@ -53,8 +54,8 @@ float Random::weibull(float lambda, float k)
 
 /*
  * Returns a float from a Gamma distribution with shape parameter alpha and rate (inverse scale) parameter beta.
- * Marsaglia and Tsang’s method is used here.
- * Note that the C++ <random> library also can directly generate Gamma random variables.
+ * Marsaglia and Tsang’s acceptance-rejection method is used here.
+ * Note that the C++ <random> library can directly generate Gamma random variables.
  */
 float Random::gamma(float alpha, float beta)
 {
