@@ -28,7 +28,7 @@ float Random::standardUniform()
  */
 float Random::standardNormal()
 {
-    return sqrt(-2*log(standardUniform()))*cos(2*PI_F*standardUniform());
+    return sqrt(-2*log(Random::standardUniform()))*cos(2*PI_F*Random::standardUniform());
 }
 
 /*
@@ -38,7 +38,7 @@ float Random::standardNormal()
  */
 float Random::exponential(float lambda)
 {
-    return -log(standardUniform()/lambda);
+    return -log(Random::standardUniform()/lambda);
 }
 
 /*
@@ -48,7 +48,7 @@ float Random::exponential(float lambda)
  */
 float Random::weibull(float lambda, float k)
 {
-    return lambda * pow(-log(standardUniform()), 1/k);
+    return lambda * pow(-log(Random::standardUniform()), 1/k);
 }
 
 /*
@@ -67,15 +67,15 @@ float Random::gamma(float alpha, float beta)
         {
             do
             {
-                Z = standardNormal();
+                Z = Random::standardNormal();
             }
             while (Z <= (-1.0/c));
             V = pow(1 + c * Z, 3);
-            if (log(standardUniform()) < (0.5*pow(Z,2) + d - d*V + d*log(V)))
+            if (log(Random::standardUniform()) < (0.5*pow(Z,2) + d - d*V + d*log(V)))
                 break;
         }
         return d*V/beta;
     }
     else
-        return gamma(alpha+1, beta) * pow(standardUniform(), 1/alpha);
+        return Random::gamma(alpha+1, beta) * pow(Random::standardUniform(), 1/alpha);
 }
