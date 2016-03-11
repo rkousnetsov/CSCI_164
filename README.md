@@ -3,6 +3,8 @@
 This repository will contain files associated with the 4-way intersection project for CSCI 164 (Computer Simulation).
 All code will be written in the C++ language (C++11 features will be used).
 
+Intersection text map:
+
 		SrcL0	SrcL0	SnkL0	SnkL0				SrcL2	SrcL2	SnkL2	SnkL2
 		1 	0						9	8
 SnkL1						7	IntL1						15	SrcL3
