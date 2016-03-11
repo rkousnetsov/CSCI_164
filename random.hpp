@@ -10,6 +10,7 @@ class Random
 {
 public:
     static float standardUniform();
+    static int integerUniform(int a, int b);
     static float standardNormal();
     static float exponential(float lambda);
     static float weibull(float lambda, float k);
