@@ -1,5 +1,6 @@
 #include "random.hpp"
-#include <math.h>
+#include <cmath>
+#include <ctime>
 #include <random>
 
 /* Define the mathematical constant pi as a floating point value */
@@ -7,10 +8,10 @@
 
 /*
  * Initialize random number generator, which uses Mersenne Twister algorithm (mt19937),
- * with a random real value seed (given by random_device).
+ * using the current time as a seed.
+ * The seed can be set to a constant in order to replicate simulation results.
  */
-static std::random_device rd;
-static std::mt19937 gen(rd());
+static std::mt19937 gen(std::time(0));
 
 /*
  * Returns a float from a standard uniform distribution ~ U(0, 1).
@@ -19,6 +20,14 @@ float Random::standardUniform()
 {
     std::uniform_real_distribution<float> unif(0, 1);
     return unif(gen);
+}
+
+/*
+ * Returns an integer from an integer uniform distribution from [a, b].
+ */
+int Random::integerUniform(int a, int b)
+{
+    return (int) floor(standardUniform() * (b - a + 1)) + a;
 }
 
 /*
@@ -39,7 +48,7 @@ float Random::standardNormal()
  */
 float Random::exponential(float lambda)
 {
-    return -log(Random::standardUniform()/lambda);
+    return -log(Random::standardUniform())/lambda;
 }
 
 /*
