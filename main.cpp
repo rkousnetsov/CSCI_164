@@ -36,6 +36,12 @@ unsigned int maxLineLength(std::vector<std::pair<float, unsigned int>> a,
             ++y;
         }
     }
+    while (x < a.size())
+    {
+        currentLength += std::get<1>(a[x]);
+        maxLength = std::max(maxLength, currentLength);
+        ++x;
+    }
     return maxLength;
 }
 
